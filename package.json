@@ -1,0 +1,29 @@
+{
+  "name": "spe_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KiranKumar-B/SPE_Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KiranKumar-B/SPE_Project/issues"
+  },
+  "homepage": "https://github.com/KiranKumar-B/SPE_Project#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.4",
+    "nodemailer": "^6.9.1",
+    "nodemon": "^2.0.22"
+  }
+}
