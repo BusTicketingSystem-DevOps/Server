@@ -11,7 +11,7 @@ function BusForm({
   type = "add",
   getData,
   selectedBus,
-//   setSelectedBus,
+  setSelectedBus,
 }) {
   const dispatch = useDispatch();
 
@@ -34,7 +34,7 @@ function BusForm({
       }
       getData();
       setShowBusForm(false);
-    //   setSelectedBus(null);
+      setSelectedBus(null);
 
       dispatch(HideLoading());
     } catch (error) {
@@ -48,7 +48,7 @@ function BusForm({
       title={type === "add" ? "Add Bus" : "Update Bus"}
       visible={showBusForm}
       onCancel={() => {
-        // setSelectedBus(null);
+        setSelectedBus(null);
         setShowBusForm(false);
       }}
       footer={false}

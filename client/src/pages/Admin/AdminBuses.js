@@ -10,7 +10,7 @@ function AdminBuses() {
   const dispatch = useDispatch();
   const [showBusForm, setShowBusForm] = useState(false);
   const [buses, setBuses] = useState([]);
-  
+  const [selectedBus, setSelectedBus] = useState(null);
   const getBuses = async () => {
     try {
       dispatch(ShowLoading());
@@ -85,7 +85,7 @@ function AdminBuses() {
           <i
             class="ri-pencil-line"
             onClick={() => {
-            //   setSelectedBus(record);
+              setSelectedBus(record);
               setShowBusForm(true);
             }}
           ></i>
@@ -112,9 +112,9 @@ function AdminBuses() {
         <BusForm
           showBusForm={showBusForm}
           setShowBusForm={setShowBusForm}
-        //   type={selectedBus ? "edit" : "add"}
-        //   selectedBus={selectedBus}
-        //   setSelectedBus={setSelectedBus}
+          type={selectedBus ? "edit" : "add"}
+          selectedBus={selectedBus}
+          setSelectedBus={setSelectedBus}
           getData={getBuses}
         />
       )}
