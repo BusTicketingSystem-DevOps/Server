@@ -3,12 +3,13 @@ import { Col, Form, message, Modal, Row } from "antd";
 import { axiosInstance } from "../helpers/axiosInstance";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
+import moment from "moment";
 
 function BusForm({
   showBusForm,
   setShowBusForm,
   type = "add",
-//   getData,
+  getData,
   selectedBus,
 //   setSelectedBus,
 }) {
@@ -31,7 +32,7 @@ function BusForm({
       } else {
         message.error(response.data.message);
       }
-    //   getData();
+      getData();
       setShowBusForm(false);
     //   setSelectedBus(null);
 
