@@ -3,14 +3,15 @@ import { HideLoading, ShowLoading } from '../redux/alertsSlice';
 import { Col, Row, message } from 'antd';
 import { useDispatch } from 'react-redux';
 import { axiosInstance } from '../helpers/axiosInstance';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import SeatSelection from '../components/SeatSelection';
 
 function BookNow() {
   const [selectedSeats, setSelectedSeats] = useState([]);
     const params = useParams();
     const dispatch = useDispatch();
-    const [bus, setBus] = useState([]);
+    const [bus, setBus] = useState(null);
+    const navigate = useNavigate();
 
     const getBus = async () => {
         try {
@@ -21,6 +22,25 @@ function BookNow() {
           dispatch(HideLoading());
           if (response.data.success) {
             setBus(response.data.data);
+          } else {
+            message.error(response.data.message);
+          }
+        } catch (error) {
+          dispatch(HideLoading());
+          message.error(error.message);
+        }
+      };
+
+      const bookNow = async (transactionId) => {
+        try {
+          dispatch(ShowLoading());
+          const response = await axiosInstance.post("/api/bookings/book-seat", {
+            bus: bus._id,
+            seats: selectedSeats,
+          });
+          dispatch(HideLoading());
+          if (response.data.success) {
+            message.success(response.data.message);
           } else {
             message.error(response.data.message);
           }
@@ -46,7 +66,7 @@ function BookNow() {
 
             <div className="flex flex-col gap-2">
               <p className="text-md">
-                Jourey Date : {bus.journeyDate}
+                Journey Date : {bus.journeyDate}
               </p>
               <p className="text-md">
                 Fare : ₹ {bus.fare} /-
@@ -78,7 +98,7 @@ function BookNow() {
                   className={`primary-btn ${
                     selectedSeats.length === 0 && "disabled-btn"
                   }`}
-                  disabled={selectedSeats.length === 0}
+                  disabled={selectedSeats.length === 0} onClick={bookNow}
                 >
                   Book Now
                 </button>
