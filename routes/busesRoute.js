@@ -67,4 +67,19 @@ router.post("/delete-bus", authMiddleware, async (req, res) => {
     }
   });
 
+  // get-bus-by-id
+
+router.post("/get-bus-by-id", authMiddleware, async (req, res) => {
+  try {
+    const bus = await Bus.findById(req.body._id);
+    return res.status(200).send({
+      success: true,
+      message: "Bus fetched successfully",
+      data: bus,
+    });
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message });
+  }
+});
+
 module.exports = router;
