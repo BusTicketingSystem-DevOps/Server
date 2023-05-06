@@ -26,7 +26,7 @@ function Bus({bus}) {
       <hr />
       <div className="d-flex justify-content-between align-items-end">
         <div>
-          <p className="text-sm">Joureny Date</p>
+          <p className="text-sm">Journey Date</p>
           <p className="text-sm">{bus.journeyDate}</p>
         </div>
 
