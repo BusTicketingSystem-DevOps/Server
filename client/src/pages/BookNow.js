@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { axiosInstance } from '../helpers/axiosInstance';
 import { useNavigate, useParams } from 'react-router-dom';
 import SeatSelection from '../components/SeatSelection';
+import StripeCheckout from "react-stripe-checkout";
 
 function BookNow() {
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -37,6 +38,7 @@ function BookNow() {
           const response = await axiosInstance.post("/api/bookings/book-seat", {
             bus: bus._id,
             seats: selectedSeats,
+            transactionId,
           });
           dispatch(HideLoading());
           if (response.data.success) {
@@ -50,6 +52,28 @@ function BookNow() {
         }
       };
 
+      const onToken = async (token)=>{
+        try {
+          dispatch(ShowLoading());
+          const response = await axiosInstance.post("/api/bookings/make-payment", {
+            token,
+            amount: selectedSeats.length * bus.fare * 100,
+          });
+          dispatch(HideLoading());
+          if (response.data.success) {
+            message.success(response.data.message);
+            bookNow(response.data.data.transactionId);
+          } else {
+            message.error(response.data.message);
+          }
+        } catch (error) {
+          dispatch(HideLoading());
+          message.error(error.message);
+        }
+      };
+
+
+      
     useEffect(() => {
         getBus();
       }, []);
@@ -94,14 +118,23 @@ function BookNow() {
                 Fare : ₹ {bus.fare * selectedSeats.length} /-
               </h1>
               <hr />
-              <button
+
+              <StripeCheckout
+                billingAddress
+                token={onToken}
+                amount={bus.fare * selectedSeats.length * 100}
+                currency="inr"
+                stripeKey="pk_test_51N5JrmSJRynLcBpMNN2QNAiWOl7uapErtloATJh8BthWDYHRNt1JmeD2CcaoCGceUJkm1ZM64MJAMGRXFntNlgSX00z7OscuWj"
+              >
+                <button
                   className={`primary-btn ${
                     selectedSeats.length === 0 && "disabled-btn"
                   }`}
-                  disabled={selectedSeats.length === 0} onClick={bookNow}
+                  disabled={selectedSeats.length === 0}
                 >
                   Book Now
                 </button>
+              </StripeCheckout>
               </div>
           </Col>
           <Col lg={12} xs={24} sm={24}>

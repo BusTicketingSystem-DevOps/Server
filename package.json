@@ -18,12 +18,15 @@
   },
   "homepage": "https://github.com/KiranKumar-B/SPE_Project#readme",
   "dependencies": {
+    "@stripe/stripe-js": "^1.52.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.4",
     "nodemailer": "^6.9.1",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "stripe": "^12.4.0",
+    "uuid": "^9.0.0"
   }
 }
