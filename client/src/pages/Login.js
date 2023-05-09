@@ -16,7 +16,7 @@ function Login() {
       if (response.data.success) {
         message.success(response.data.message);
         localStorage.setItem("token", response.data.data);
-        navigate("/");
+        window.location.href = "/";
       } else {
         message.error(response.data.message);
       }
