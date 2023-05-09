@@ -82,6 +82,9 @@ function Bookings() {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
+  const getSeats = (seats) => {
+    return seats.join(", ");
+  };
 
   useEffect(() => {
     getBookings();
@@ -121,9 +124,8 @@ function Bookings() {
             </p>
             <hr />
             <p>
-              <span>Seat Numbers:</span> <br />
-              {selectedBooking.seats}
-            </p>
+              <span>Seat Numbers:</span> <br /></p>
+                {`${selectedBooking.seats}`}
             <hr />
             <p>
               <span>Total Amount:</span>{" "}

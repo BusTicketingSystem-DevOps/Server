@@ -43,6 +43,7 @@ function BookNow() {
           dispatch(HideLoading());
           if (response.data.success) {
             message.success(response.data.message);
+            navigate("/bookings");
           } else {
             message.error(response.data.message);
           }

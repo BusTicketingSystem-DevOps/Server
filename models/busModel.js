@@ -35,7 +35,7 @@ const busSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    required: true,
+    default: "AC",
   },
   fare: {
     type: Number,
