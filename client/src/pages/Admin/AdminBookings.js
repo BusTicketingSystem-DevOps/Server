@@ -1,27 +1,33 @@
 import { message, Modal, Table } from "antd";
+import axios from "axios";
+import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import PageTitle from "../components/PageTitle";
-import { axiosInstance } from "../helpers/axiosInstance";
-import { HideLoading, ShowLoading } from "../redux/alertsSlice";
-import moment from "moment";
+import BusForm from "../../components/BusForm";
+import PageTitle from "../../components/PageTitle";
+import { axiosInstance } from "../../helpers/axiosInstance";
+import { HideLoading, ShowLoading } from "../../redux/alertsSlice";
 import { useReactToPrint } from "react-to-print";
 
-function Bookings() {
-  const [bookings, setBookings] = useState([]);
-  const dispatch = useDispatch();
+function AdminBookings() {
   const [showPrintModal, setShowPrintModal] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
+  const [bookings, setBookings] = useState([]);
+  const dispatch = useDispatch();
   const getBookings = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await axiosInstance.post("/api/bookings/get-bookings-by-user-id", {});
+      const response = await axiosInstance.post(
+        "/api/bookings/get-all-bookings",
+        {}
+      );
       dispatch(HideLoading());
       if (response.data.success) {
         const mappedData = response.data.data.map((booking) => {
           return {
             ...booking,
             ...booking.bus,
+            ...booking.user,
             key: booking._id,
           };
         });
@@ -37,9 +43,9 @@ function Bookings() {
 
   const columns = [
     {
-      title: "Bus Name",
+      title: "User Name",
       dataIndex: "name",
-      key: "bus",
+      key: "user",
     },
     {
       title: "Bus Number",
@@ -66,11 +72,13 @@ function Bookings() {
       dataIndex: "action",
       render: (text, record) => (
         <div>
-          <p className="text-md underline"
+          <p
+            className="text-md underline"
             onClick={() => {
               setSelectedBooking(record);
               setShowPrintModal(true);
-            }}>
+            }}
+          >
             Print
           </p>
         </div>
@@ -78,24 +86,22 @@ function Bookings() {
     },
   ];
 
-  const componentRef = useRef();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
-
   useEffect(() => {
     getBookings();
   }, []);
 
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   return (
     <div>
-    <PageTitle title="Bookings" />
-    <div className="mt-2">
-      <Table dataSource={bookings} columns={columns} />
-    </div>
+      <PageTitle title="Bookings" />
+      <div className="mt-2">
+        <Table dataSource={bookings} columns={columns} />
+      </div>
 
-
-    {showPrintModal && (
+      {showPrintModal && (
         <Modal
           title="Print Ticket"
           onCancel={() => {
@@ -107,7 +113,7 @@ function Bookings() {
           onOk={handlePrint}
         >
           <div className="d-flex flex-column p-5" ref={componentRef}>
-            <p>Bus : {selectedBooking.name}</p>
+            <p>UserName : {selectedBooking.name}</p>
             <p>
               {selectedBooking.from} - {selectedBooking.to}
             </p>
@@ -121,8 +127,9 @@ function Bookings() {
             </p>
             <hr />
             <p>
-              <span>Seat Numbers:</span> <br /></p>
-                {`${selectedBooking.seats}`}
+              <span>Seat Numbers:</span> <br />
+              {`${selectedBooking.seats}`}
+            </p>
             <hr />
             <p>
               <span>Total Amount:</span>{" "}
@@ -131,9 +138,8 @@ function Bookings() {
           </div>
         </Modal>
       )}
-
-  </div>
-  )
+    </div>
+  );
 }
 
-export default Bookings
+export default AdminBookings;
