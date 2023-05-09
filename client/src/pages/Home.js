@@ -21,7 +21,11 @@ function Home() {
     });
     try {
       dispatch(ShowLoading());
-      const response = await axiosInstance.post("/api/buses/get-all-buses", { filters: tempFilters });
+      const response = await axiosInstance.post("/api/buses/get-all-buses", { filters: tempFilters }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       dispatch(HideLoading());
       if (response.data.success) {
         setBuses(response.data.data);
