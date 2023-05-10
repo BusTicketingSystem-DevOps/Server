@@ -66,10 +66,14 @@ function DefaultLayout({ children }) {
   return (
     <div className="layout-parent">
       <div className="sidebar">
-        <div className="sidebar-header">
+        {
+          !collapsed && (
+            <div className="sidebar-header">
              <h1 className="logo">Welcome {user?.name}!<hr></hr></h1>
              <h1 className="role">Role : {user?.isAdmin ? 'Admin' : 'User'}</h1>
         </div>
+          )
+        }
         <div className="d-flex flex-column gap-3 justify-content-start menu">
           {menuToBeRendered.map((item, index) => {
             return (
