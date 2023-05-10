@@ -43,7 +43,7 @@
     align-items: center;
     justify-content: start;
     padding: 5px 15px;
-    width: 100%;
+    /* width: 100%; */
     cursor: pointer;
     transition: 0.2s;
     gap: 15px;
