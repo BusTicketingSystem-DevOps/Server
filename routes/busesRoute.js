@@ -63,12 +63,14 @@ router.post("/get-all-buses", authMiddleware, async (req, res) => {
      bus=await Bus.find(req.body.filters);
     }
      for(b of bus){
-       const bus2=await Bus.find({from:b.to});
+      if(b.status === "Yet To Start")
+       {const bus2=await Bus.find({from:b.to});
        for(b2 of bus2){
-         if (b2.to===req.body.filters.to || req.body.filters.to === null ){
+         if (b2.to===req.body.filters.to && b2.status ==="Yet To Start" && b2.journeyDate===b.journeyDate && b2.departure>b.arrival || req.body.filters.to === null ){
             finalbus.push([b,b2]);
          }
        }
+      }
      }
      console.log('buses',finalbus);
     }
