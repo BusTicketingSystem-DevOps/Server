@@ -1,0 +1,11 @@
+WARN - 2023-05-12T21:22:52.118Z hansalBhai@gmail.com login - user_not_found
+ERROR - 2023-05-12T21:22:58.103Z hansal@gmail.com login - password_error
+INFO - 2023-05-12T21:23:04.063Z hansal@gmail.com login - success
+ERROR - 2023-05-12T23:12:36.735Z user1@gmail.com login - password_error
+INFO - 2023-05-12T23:12:38.872Z user1@gmail.com login - success
+WARN - 2023-05-12T23:13:07.474Z user@gmail.com login - user_not_found
+WARN - 2023-05-12T23:13:14.480Z admin@gmail.com login - user_not_found
+WARN - 2023-05-12T23:13:18.374Z admin@gmail.com login - user_not_found
+WARN - 2023-05-12T23:13:20.865Z admin@gmail.com login - user_not_found
+ERROR - 2023-05-12T23:24:13.094Z abc@gmail.com login - password_error
+INFO - 2023-05-12T23:24:22.604Z abc@gmail.com login - success

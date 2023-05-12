@@ -17,3 +17,8 @@ const bookingsRoute = require("./routes/bookingsRoute");
 app.use("/api/bookings", bookingsRoute);
 
 app.listen(port, () => console.log(`Node server listening on port ${port}!`));
+
+// require("./logger.js");
+// const winston = require("winston");
+// const userLogger = winston.loggers.get("userLogger");
+// userLogger.info("User Login", { username: "me", time: "time" });
