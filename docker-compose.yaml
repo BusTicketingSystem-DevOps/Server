@@ -3,7 +3,7 @@ services:
   client:
     image: adityagowda2000/client
     stdin_open: true
-    ports: 
+    ports:
       - "3000:3000"
     networks:
       - mern-app
@@ -15,6 +15,44 @@ services:
       - "5000:5000"
     networks:
       - mern-app
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+    container_name: elasticsearch
+    restart: always
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - elasticsearch-data-volume:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - mern-app
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.12.0
+    restart: always
+    environment:
+      SERVER_NAME: kibana
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    networks:
+      - mern-app
+    depends_on:
+      - elasticsearch
 networks:
   mern-app:
     driver: bridge
+volumes:
+  elasticsearch-data-volume:
+    driver: local

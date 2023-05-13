@@ -1,5 +1,5 @@
 const winston = require("winston");
-
+const { ElasticsearchTransport } = require("winston-elasticsearch");
 const format = winston.format.printf((info) => {
   return `${info.level.toUpperCase()} - ${info.message}`;
 });
@@ -7,8 +7,12 @@ const format = winston.format.printf((info) => {
 winston.loggers.add("userLogger", {
   format: format,
   transports: [
-    new winston.transports.File({
-      filename: "logs/userLogger.log",
+    new ElasticsearchTransport({
+      level: "info",
+      index: "logs",
+      clientOpts: {
+        node: "http://localhost:9200/",
+      },
     }),
   ],
 });
