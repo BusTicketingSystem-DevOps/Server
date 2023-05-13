@@ -1,7 +1,6 @@
 ---
 - name: Deploy Docker Compose stack
   hosts: all
-  become: true
 
   tasks:
     - name: Install Docker Compose
