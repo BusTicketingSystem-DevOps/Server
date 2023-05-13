@@ -11,7 +11,7 @@
     - name: Stop Previous Session
       command: docker-compose down
       args:
-        chdir: /opt/
+        chdir: /home/ag/ansible
 
     - name: Prune Unused Containers,Images and Networks
       command: docker system prune -f
@@ -29,9 +29,9 @@
     - name: Copy Docker Compose file to host
       copy:
         src: /var/lib/jenkins/workspace/Server/docker-compose.yaml
-        dest: /opt/docker-compose.yaml
+        dest: /home/ag/ansible/docker-compose.yaml
 
     - name: Start Docker Compose stack
       command: docker-compose up -d
       args:
-        chdir: /opt/
+        chdir: /home/ag/ansible
