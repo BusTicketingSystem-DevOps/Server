@@ -15,7 +15,7 @@ exports.registerUser = async (req, res) => {
           req.body.email
         } registration - user_already_exists`
       );
-      return res.send({
+      return res.status(500).send({
         message: "User already exists",
         success: false,
         data: null,
@@ -28,13 +28,13 @@ exports.registerUser = async (req, res) => {
     userLogger.info(
       `${new Date().toISOString()} ${req.body.email} registration - success`
     );
-    res.send({
+    res.status(200).send({
       message: "User created successfully",
       success: true,
       data: null,
     });
   } catch (error) {
-    res.send({
+    res.status(500).send({
       message: error.message,
       success: false,
       data: null,
@@ -50,7 +50,7 @@ exports.loginUser = async (req, res) => {
       userLogger.warn(
         `${new Date().toISOString()} ${req.body.email} login - user_not_found`
       );
-      return res.send({
+      return res.status(500).send({
         message: "User does not exist",
         success: false,
         data: null,
@@ -61,7 +61,7 @@ exports.loginUser = async (req, res) => {
       userLogger.warn(
         `${new Date().toISOString()} ${req.body.email} login - user_blocked`
       );
-      return res.send({
+      return res.status(500).send({
         message: "Your account is blocked , please contact admin",
         success: false,
         data: null,
@@ -77,7 +77,7 @@ exports.loginUser = async (req, res) => {
       userLogger.error(
         `${new Date().toISOString()} ${req.body.email} login - password_error`
       );
-      return res.send({
+      return res.status(500).send({
         message: "Incorrect password",
         success: false,
         data: null,
@@ -90,13 +90,13 @@ exports.loginUser = async (req, res) => {
     userLogger.info(
       `${new Date().toISOString()} ${req.body.email} login - success`
     );
-    res.send({
+    res.status(200).send({
       message: "User logged in successfully",
       success: true,
       data: token,
     });
   } catch (error) {
-    res.send({
+    res.status(500).send({
       message: error.message,
       success: false,
       data: null,
@@ -108,13 +108,13 @@ exports.loginUser = async (req, res) => {
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.body.userId);
-    res.send({
+    res.status(200).send({
       message: "User fetched successfully",
       success: true,
       data: user,
     });
   } catch (error) {
-    res.send({
+    res.status(500).send({
       message: error.message,
       success: false,
       data: null,
@@ -126,13 +126,13 @@ exports.getUserById = async (req, res) => {
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find({});
-    res.send({
+    res.status(200).send({
       message: "Users fetched successfully",
       success: true,
       data: users,
     });
   } catch (error) {
-    res.send({
+    res.status(500).send({
       message: error.message,
       success: false,
       data: null,
@@ -144,13 +144,13 @@ exports.getAllUsers = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     await User.findByIdAndUpdate(req.body._id, req.body);
-    res.send({
+    res.status(200).send({
       message: "User permissions updated successfully",
       success: true,
       data: null,
     });
   } catch {
-    res.send({
+    res.status(500).send({
       message: error.message,
       success: false,
       data: null,
