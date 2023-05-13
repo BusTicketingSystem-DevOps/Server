@@ -15,7 +15,8 @@ services:
       - "5000:5000"
     networks:
       - mern-app
-    volumes: -logs:/usr/src/app/logs
+    volumes:
+      - logs:/usr/src/app/logs
 
   Elasticsearch:
     image: elasticsearch:7.16.2
@@ -59,7 +60,9 @@ services:
     networks:
       - mern-app
 
-volumes: logs:{}
+volumes:
+  logs:
+    external: false
 
 networks:
   mern-app:
