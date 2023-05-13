@@ -37,7 +37,7 @@ services:
     restart: always
     volumes:
       - logs:/logstash_dir
-    command: logstash -f /logstash_dir/logstash.conf
+    command: logstash -f /home/ag/logstash.conf
     depends_on:
       - Elasticsearch
     ports:
