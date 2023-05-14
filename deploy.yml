@@ -1,0 +1,37 @@
+---
+- name: Deploy Docker Compose stack
+  hosts: all
+
+  tasks:
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        state: present
+
+    - name: Stop Previous Session
+      command: docker-compose down
+      args:
+        chdir: /opt/
+
+    - name: Prune Unused Containers,Images and Networks
+      command: docker system prune -f
+
+    - name: Pull Backend Image
+      docker_image:
+        name: adityagowda2000/server
+        source: pull
+
+    - name: Pull Frontend Image
+      docker_image:
+        name: adityagowda2000/client
+        source: pull
+
+    - name: Copy Docker Compose file to host
+      copy:
+        src: /var/lib/jenkins/workspace/Server/docker-compose.yaml
+        dest: /opt/docker-compose.yaml
+
+    - name: Start Docker Compose stack
+      command: docker-compose up -d
+      args:
+        chdir: /opt/

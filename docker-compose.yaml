@@ -1,0 +1,20 @@
+version: "3"
+services:
+  client:
+    image: adityagowda2000/client
+    stdin_open: true
+    ports: 
+      - "3000:3000"
+    networks:
+      - mern-app
+    depends_on:
+      - server
+  server:
+    image: adityagowda2000/server
+    ports:
+      - "5000:5000"
+    networks:
+      - mern-app
+networks:
+  mern-app:
+    driver: bridge
