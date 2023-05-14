@@ -273,14 +273,16 @@ describe("Bus API", () => {
   });
 
   describe("Bookings API",() => {
-    let bookingid;
+    
     describe("Book a seat",() => {
       it("Books a seat", async () => {
         let busid = await Bus.findOne({number:"1098"});
+        let user = await User.findOne({email:"xyz@gmail.com"});
         const response = await request(app)
         .post("/api/bookings/book-seat")
         .send({
           bus: busid._id,
+          user: user._id,
           seats: [1,2]
         })
         .set("Authorization", `Bearer ${token}`);
@@ -319,6 +321,10 @@ describe("Bus API", () => {
   })
 
   afterAll(async() => {
+    let user =  await User.findOne({email:"xyz@gmail.com"});
+    let userId = user._id;
+    let bookingid = await Booking.findOne({user:userId});
+    await Booking.deleteOne({_id:bookingid._id});
     await User.deleteOne({email:"xyz@gmail.com"});
     await Bus.deleteOne({number:"1098"});
     await Bus.deleteOne({number:"1099"});
