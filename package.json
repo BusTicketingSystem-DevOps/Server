@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" ",
+    "test": "node ./node_modules/jest/bin/jest && jest --verbose --runInBand --forceExit",
     "server": "nodemon server.js"
   },
   "repository": {
@@ -31,5 +31,12 @@
     "stripe": "^12.4.0",
     "uuid": "^9.0.0",
     "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3"
+  },
+  "jest":{
+    "testEnvironment":"node"
   }
 }

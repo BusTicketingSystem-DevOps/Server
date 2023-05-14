@@ -15,7 +15,7 @@ exports.registerUser = async (req, res) => {
           req.body.email
         } registration - user_already_exists`
       );
-      return res.status(500).send({
+      return res.status(400).send({
         message: "User already exists",
         success: false,
         data: null,
