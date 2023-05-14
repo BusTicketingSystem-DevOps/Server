@@ -7,15 +7,8 @@ exports.addBus = async (req, res) => {
   try {
     const existingBus = await Bus.findOne({ number: req.body.number });
     if (existingBus) {
-<<<<<<< HEAD
-      busesLogger.warn(
-        `${new Date().toISOString()} ${req.body.number} add - already_exists`
-      );
-      return res.status(400).send({
-=======
       busesLogger.warn(`${req.body.number} add - already_exists`);
       return res.status(200).send({
->>>>>>> 4d17d50993987232be11f259c42738fcea72f2b1
         success: false,
         message: "Bus already exists",
       });
