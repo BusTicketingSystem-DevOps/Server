@@ -40,7 +40,7 @@ exports.getAllBuses = async (req, res) => {
       for (b of bus) {
         const bus2 = await Bus.find({ from: b.to });
         for (b2 of bus2) {
-          if (b2.to === req.body.filters.to || req.body.filters.to === null) {
+          if (b2.to === req.body.filters.to && b.status === "Yet To Start" && b2.status === "Yet To Start" && b.journeyDate===b2.journeyDate && b.arrival<b2.departure|| req.body.filters.to === null) {
             finalbus.push([b, b2]);
           }
         }
