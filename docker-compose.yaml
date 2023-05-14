@@ -3,7 +3,7 @@ services:
   client:
     image: adityagowda2000/client
     stdin_open: true
-    ports: 
+    ports:
       - "3000:3000"
     networks:
       - mern-app
@@ -15,6 +15,15 @@ services:
       - "5000:5000"
     networks:
       - mern-app
+    volumes:
+      - logs:/usr/src/app/logs
 networks:
   mern-app:
     driver: bridge
+volumes:
+  logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/aditya/Desktop/logs
