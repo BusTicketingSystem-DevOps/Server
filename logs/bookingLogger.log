@@ -1,5 +1,14 @@
+<<<<<<< HEAD
+INFO - 2023-05-14T10:45:53.821Z 1098 Bangalore Hyderabad 2023-05-30 900 2 6460bbd920dd81641a7a9fcd booking - success
+INFO - 2023-05-14T10:48:33.510Z 1098 Bangalore Hyderabad 2023-05-30 900 2 6460bc79506b9cdffd374043 booking - success
+INFO - 2023-05-14T10:49:59.202Z 1098 Bangalore Hyderabad 2023-05-30 900 2 6460bccf9c1e29213ea784d4 booking - success
+INFO - 2023-05-14T10:52:46.926Z 1098 Bangalore Hyderabad 2023-05-30 900 2 6460bd76cd38b6beed8e979e booking - success
+INFO - 2023-05-14T10:53:30.672Z 1098 Bangalore Hyderabad 2023-05-30 900 2 6460bda233a394a40aef66f5 booking - success
+INFO - 2023-05-14T10:58:16.041Z 1098 Bangalore Hyderabad 2023-05-30 900 2 6460bec04f7d21f0f30b0760 booking - success
+=======
 2023-05-14T09:35:40.208Z INFO - 1245 Mysore Bangalore 2023-05-31 380 3 645f99f6e0fbae77c727119e booking - success
 2023-05-14T09:36:47.593Z INFO - 1234 Bangalore Mysore 2023-06-14 380 9 645eee78e9f330b201c00fd3 booking - success
 2023-05-14T09:37:45.562Z INFO - 1265 Bangalore Madurai 2023-05-31 500 2 645eee78e9f330b201c00fd3 booking - success
 2023-05-14T09:38:49.564Z INFO - 1265 Bangalore Madurai 2023-05-31 500 1 645eed7267dd1994e9e5776a booking - success
 2023-05-14T09:40:20.187Z INFO - 1256 Bangalore Madurai 2023-05-31 550 1 6460999c678c0dd91f3f9821 booking - success
+>>>>>>> 4d17d50993987232be11f259c42738fcea72f2b1
