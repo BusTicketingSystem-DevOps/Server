@@ -15,7 +15,6 @@ app.use("/api/buses", busesRoute);
 const bookingsRoute = require("./routes/bookingsRoute");
 app.use("/api/bookings", bookingsRoute);
 
-app.listen(port, () => {
-});
+app.listen(port, () => {});
 
-module.exports = {app};
+module.exports = { app };

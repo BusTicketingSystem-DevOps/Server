@@ -1,11 +1,11 @@
 const winston = require("winston");
 
 const format = winston.format.printf((info) => {
-  return `${info.level.toUpperCase()} - ${info.message}`;
+  return `${info.timestamp} ${info.level.toUpperCase()} - ${info.message}`;
 });
 
 winston.loggers.add("userLogger", {
-  format: format,
+  format: winston.format.combine(winston.format.timestamp(), format),
   transports: [
     new winston.transports.File({
       filename: "logs/userLogger.log",
@@ -14,7 +14,7 @@ winston.loggers.add("userLogger", {
 });
 
 winston.loggers.add("busesLogger", {
-  format: format,
+  format: winston.format.combine(winston.format.timestamp(), format),
   transports: [
     new winston.transports.File({
       filename: "logs/busesLogger.log",
@@ -23,7 +23,7 @@ winston.loggers.add("busesLogger", {
 });
 
 winston.loggers.add("bookingLogger", {
-  format: format,
+  format: winston.format.combine(winston.format.timestamp(), format),
   transports: [
     new winston.transports.File({
       filename: "logs/bookingLogger.log",
