@@ -10,11 +10,7 @@ exports.registerUser = async (req, res) => {
   try {
     const existingUser = await User.findOne({ email: req.body.email });
     if (existingUser) {
-      userLogger.warn(
-        `${new Date().toISOString()} ${
-          req.body.email
-        } registration - user_already_exists`
-      );
+      userLogger.warn(`${req.body.email} registration - user_already_exists`);
       return res.status(400).send({
         message: "User already exists",
         success: false,
@@ -25,9 +21,7 @@ exports.registerUser = async (req, res) => {
     req.body.password = hashedPassword;
     const newUser = new User(req.body);
     await newUser.save();
-    userLogger.info(
-      `${new Date().toISOString()} ${req.body.email} registration - success`
-    );
+    userLogger.info(`${req.body.email} registration - success`);
     res.status(200).send({
       message: "User created successfully",
       success: true,
@@ -47,9 +41,7 @@ exports.loginUser = async (req, res) => {
   try {
     const userExists = await User.findOne({ email: req.body.email });
     if (!userExists) {
-      userLogger.warn(
-        `${new Date().toISOString()} ${req.body.email} login - user_not_found`
-      );
+      userLogger.warn(`${req.body.email} login - user_not_found`);
       return res.status(500).send({
         message: "User does not exist",
         success: false,
@@ -58,9 +50,7 @@ exports.loginUser = async (req, res) => {
     }
 
     if (userExists.isBlocked) {
-      userLogger.warn(
-        `${new Date().toISOString()} ${req.body.email} login - user_blocked`
-      );
+      userLogger.warn(`${req.body.email} login - user_blocked`);
       return res.status(500).send({
         message: "Your account is blocked , please contact admin",
         success: false,
@@ -74,9 +64,7 @@ exports.loginUser = async (req, res) => {
     );
 
     if (!passwordMatch) {
-      userLogger.error(
-        `${new Date().toISOString()} ${req.body.email} login - password_error`
-      );
+      userLogger.error(`${req.body.email} login - password_error`);
       return res.status(500).send({
         message: "Incorrect password",
         success: false,
@@ -87,9 +75,7 @@ exports.loginUser = async (req, res) => {
     const token = jwt.sign({ userId: userExists._id }, process.env.jwt_secret, {
       expiresIn: "1d",
     });
-    userLogger.info(
-      `${new Date().toISOString()} ${req.body.email} login - success`
-    );
+    userLogger.info(`${req.body.email} login - success`);
     res.status(200).send({
       message: "User logged in successfully",
       success: true,

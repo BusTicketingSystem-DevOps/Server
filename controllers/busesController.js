@@ -7,19 +7,22 @@ exports.addBus = async (req, res) => {
   try {
     const existingBus = await Bus.findOne({ number: req.body.number });
     if (existingBus) {
+<<<<<<< HEAD
       busesLogger.warn(
         `${new Date().toISOString()} ${req.body.number} add - already_exists`
       );
       return res.status(400).send({
+=======
+      busesLogger.warn(`${req.body.number} add - already_exists`);
+      return res.status(200).send({
+>>>>>>> 4d17d50993987232be11f259c42738fcea72f2b1
         success: false,
         message: "Bus already exists",
       });
     }
     const newBus = new Bus(req.body);
     await newBus.save();
-    busesLogger.info(
-      `${new Date().toISOString()} ${req.body.number} add - success`
-    );
+    busesLogger.info(`${req.body.number} add - success`);
     return res.status(200).send({
       success: true,
       message: "Bus added successfully",
@@ -68,9 +71,7 @@ exports.getAllBuses = async (req, res) => {
 exports.updateBus = async (req, res) => {
   try {
     await Bus.findByIdAndUpdate(req.body._id, req.body);
-    busesLogger.info(
-      `${new Date().toISOString()} ${req.body.number} update - success`
-    );
+    busesLogger.info(`${req.body.number} update - success`);
     return res.status(200).send({
       success: true,
       message: "Bus updated successfully",
@@ -84,9 +85,7 @@ exports.updateBus = async (req, res) => {
 exports.deleteBus = async (req, res) => {
   try {
     await Bus.findByIdAndDelete(req.body._id);
-    busesLogger.info(
-      `${new Date().toISOString()} ${req.body.number} delete - success`
-    );
+    busesLogger.info(`${req.body.number} delete - success`);
     return res.status(200).send({
       success: true,
       message: "Bus deleted successfully",
@@ -100,9 +99,7 @@ exports.deleteBus = async (req, res) => {
 exports.getBusById = async (req, res) => {
   try {
     const bus = await Bus.findById(req.body._id);
-    busesLogger.info(
-      `${new Date().toISOString()} ${bus.number} find - success`
-    );
+    busesLogger.info(`${bus.number} find - success`);
     return res.status(200).send({
       success: true,
       message: "Bus fetched successfully",

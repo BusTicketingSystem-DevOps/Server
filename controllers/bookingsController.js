@@ -21,9 +21,7 @@ exports.bookSeat = async (req, res) => {
     await bus.save();
     let numTickets = req.body.seats.length;
     bookingLogger.info(
-      `${new Date().toISOString()} ${bus.number} ${bus.from} ${bus.to} ${
-        bus.journeyDate
-      } ${bus.fare} ${numTickets} ${req.body.userId} booking - success`
+      `${bus.number} ${bus.from} ${bus.to} ${bus.journeyDate} ${bus.fare} ${numTickets} ${req.body.userId} booking - success`
     );
     res.status(200).send({
       message: "Booking successful",
