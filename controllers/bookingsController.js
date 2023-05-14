@@ -4,9 +4,9 @@ const { v4: uuidv4 } = require("uuid");
 const stripe = require("stripe")(
   "sk_test_51N5JrmSJRynLcBpMJwX06OmR6ld25XhPyntpJMShkncosF8eLkTnwqfPRRb5ZcxcIzbmmeuGfAunDzEe4VFhrMFa00kGXi4gmQ"
 );
-require("../logger.js");
-const winston = require("winston");
-const bookingLogger = winston.loggers.get("bookingLogger");
+// require("../logger.js");
+// const winston = require("winston");
+// const bookingLogger = winston.loggers.get("bookingLogger");
 //book a seat
 exports.bookSeat = async (req, res) => {
   try {
@@ -20,11 +20,11 @@ exports.bookSeat = async (req, res) => {
     bus.seatsBooked = [...bus.seatsBooked, ...req.body.seats];
     await bus.save();
     let numTickets = req.body.seats.length;
-    bookingLogger.info(
-      `${new Date().toISOString()} ${bus.number} ${bus.from} ${bus.to} ${
-        bus.journeyDate
-      } ${bus.fare} ${numTickets} ${req.body.userId} booking - success`
-    );
+    // bookingLogger.info(
+    //   `${new Date().toISOString()} ${bus.number} ${bus.from} ${bus.to} ${
+    //     bus.journeyDate
+    //   } ${bus.fare} ${numTickets} ${req.body.userId} booking - success`
+    // );
     res.status(200).send({
       message: "Booking successful",
       data: newBooking,

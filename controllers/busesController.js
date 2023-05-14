@@ -1,15 +1,15 @@
 const Bus = require("../models/busModel");
-require("../logger.js");
-const winston = require("winston");
-const busesLogger = winston.loggers.get("busesLogger");
+// require("../logger.js");
+// const winston = require("winston");
+// const busesLogger = winston.loggers.get("busesLogger");
 // add-bus
 exports.addBus = async (req, res) => {
   try {
     const existingBus = await Bus.findOne({ number: req.body.number });
     if (existingBus) {
-      busesLogger.warn(
-        `${new Date().toISOString()} ${req.body.number} add - already_exists`
-      );
+      // busesLogger.warn(
+      //   `${new Date().toISOString()} ${req.body.number} add - already_exists`
+      // );
       return res.status(200).send({
         success: false,
         message: "Bus already exists",
@@ -17,9 +17,9 @@ exports.addBus = async (req, res) => {
     }
     const newBus = new Bus(req.body);
     await newBus.save();
-    busesLogger.info(
-      `${new Date().toISOString()} ${req.body.number} add - success`
-    );
+    // busesLogger.info(
+    //   `${new Date().toISOString()} ${req.body.number} add - success`
+    // );
     return res.status(200).send({
       success: true,
       message: "Bus added successfully",
@@ -68,9 +68,9 @@ exports.getAllBuses = async (req, res) => {
 exports.updateBus = async (req, res) => {
   try {
     await Bus.findByIdAndUpdate(req.body._id, req.body);
-    busesLogger.info(
-      `${new Date().toISOString()} ${req.body.number} update - success`
-    );
+    // busesLogger.info(
+    //   `${new Date().toISOString()} ${req.body.number} update - success`
+    // );
     return res.status(200).send({
       success: true,
       message: "Bus updated successfully",
@@ -84,9 +84,9 @@ exports.updateBus = async (req, res) => {
 exports.deleteBus = async (req, res) => {
   try {
     await Bus.findByIdAndDelete(req.body._id);
-    busesLogger.info(
-      `${new Date().toISOString()} ${req.body.number} delete - success`
-    );
+    // busesLogger.info(
+    //   `${new Date().toISOString()} ${req.body.number} delete - success`
+    // );
     return res.status(200).send({
       success: true,
       message: "Bus deleted successfully",
@@ -100,9 +100,9 @@ exports.deleteBus = async (req, res) => {
 exports.getBusById = async (req, res) => {
   try {
     const bus = await Bus.findById(req.body._id);
-    busesLogger.info(
-      `${new Date().toISOString()} ${bus.number} find - success`
-    );
+    // busesLogger.info(
+    //   `${new Date().toISOString()} ${bus.number} find - success`
+    // );
     return res.status(200).send({
       success: true,
       message: "Bus fetched successfully",
