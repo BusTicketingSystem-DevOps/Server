@@ -10,7 +10,7 @@ exports.addBus = async (req, res) => {
       busesLogger.warn(
         `${new Date().toISOString()} ${req.body.number} add - already_exists`
       );
-      return res.status(200).send({
+      return res.status(400).send({
         success: false,
         message: "Bus already exists",
       });
